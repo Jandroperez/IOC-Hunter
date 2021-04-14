@@ -9,3 +9,7 @@
 * Python 3
 * Jupyter Notebooks
 * VirusTotal Api Key
+
+## VirusTotal Widget:
+--------------
+The NBViewer does not allow for Interactive widgets to run, so a GIF was made to demonstrate how to use the VirusTotal Hash Report Widget
