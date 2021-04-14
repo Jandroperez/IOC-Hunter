@@ -26,6 +26,36 @@ class VirusTotal:
     def __init__(self, ApiKey: str):
         self.ApiKey = ApiKey
 
+    # Function to gather information on a File
+    def get_file_information(self, FileHash=''):
+        """
+        Args:
+            FileHash: The target Hash that will draw report from
+
+        Returns:
+            Will return a JSON of the Information from the report
+        """
+
+        # The try loop 
+        try:
+            VT_File_Report_URL = f"https://www.virustotal.com/api/v3/files/{FileHash}"
+
+            VT_Request = requests.get(
+                VT_File_Report_URL,
+                headers={
+                    'x-apikey': self.ApiKey
+                }
+            )
+            
+            # Checks if the request is ok
+            if VT_Request.ok:
+                return VT_Request.json()['data']['attributes']
+            else:
+                return f"Error: {VT_Request.status_code}: {VT_Request.content}"
+        
+        except requests.RequestException as error:
+            return f"Error: {error}"
+
     # Functions to handle all the Methods
     def get_file_relationships(self, FileHash='', Relationship='') -> json:
         """

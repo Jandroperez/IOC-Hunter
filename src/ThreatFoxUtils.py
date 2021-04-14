@@ -46,14 +46,16 @@ class ThreatFox:
 
         # Will handle the Request to Threat Fox
         try:
+            print(f"[-] Gathering IOC's from past {number_of_days} days...")
             ThreatFox_Request = requests.post(
                 "https://threatfox-api.abuse.ch/api/v1",
                 json=args
             )
 
             if ThreatFox_Request.ok:
+                print("[+] IOC Data has been Gathered")
                 ThreatFox_Data = ThreatFox_Request.json()['data']
-                return ThreatFox_Data
+                return json_normalize(ThreatFox_Data)
 
         except requests.RequestException as error:
             return f"Error: {error}"
